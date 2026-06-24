@@ -10,22 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Login to Docker Hub
       - name: Docker Login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      # Step 3: Build Docker image
-      - name: Build Docker image
-        run: docker build -t umairas7/my-nginx .
+      - name: Build Docker Image (latest)
+        run: docker build -t umairas7/my-nginx:latest .
 
-      # Step 4: Push to Docker Hub
-      - name: Push Docker image
-        run: docker push umairas7/my-nginx
+      - name: Build Docker Image (version)
+        run: docker build -t umairas7/my-nginx:v1 .
 
-      # Step 5: Done
-      - name: Success message
-        run: echo "Image built and pushed successfully 🚀"
+      - name: Push latest
+        run: docker push umairas7/my-nginx:latest
+
+      - name: Push version
+        run: docker push umairas7/my-nginx:v1
+
+      - name: Done
+        run: echo "✅ Image built and pushed automatically 🚀"
