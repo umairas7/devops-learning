@@ -13,5 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Print message
-        run: echo "CI working ✅"
+      - name: Show files
+        run: ls -la
+
+      - name: Build Docker image
+        run: docker build -t my-nginx .
+
+      - name: Done
+        run: echo "Docker image built successfully 🚀"
